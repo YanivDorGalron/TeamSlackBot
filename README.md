@@ -47,6 +47,7 @@ To run the script:
 
 This will:
 
+
 1.  🧑‍🤝‍🧑 Retrieve the list of active members in the Slack workspace.
 2.  🎲 Randomly select a member from the list (excluding bots, deactivated users, and any users in the `not_relevant` list).
 3.  📩 Send a direct message to the selected member informing them that they are the "Tin Man" for the day.
@@ -79,6 +80,7 @@ To automate the execution of the Tin Man Slack Bot script at regular intervals, 
     -   `0 9 * * *` specifies that the script should run every day at 9:00 AM.
     -   Replace `/usr/bin/python3` with the path to your Python interpreter.
     -   Replace `/path/to/tin_man.py` with the full path to the `tin_man.py` script.
+
 3.  **💾 Save and Exit:**
     
     After adding the cron job, save the file and exit the editor. The new cron job is now scheduled and will run automatically at the specified time.
