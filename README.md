@@ -1,4 +1,3 @@
-
 # 🎩 Tin Man Slack Bot
 
 This Python script randomly selects a team member from a Slack workspace and assigns them as the "Tin Man" for the day, notifying them via a direct message on Slack. It also sends a notification to specified admins about the selected "Tin Man".
@@ -91,3 +90,4 @@ The script handles errors related to fetching users or sending messages from Sla
 ## 📜 License
 
 This project is licensed under the MIT License.
+
