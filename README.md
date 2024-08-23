@@ -33,10 +33,11 @@ This Python script randomly selects a team member from a Slack workspace and ass
     
     Replace `'your-slack-token'` with your actual Slack API token.
     
+
 4.  **🛠️ Customize the script:**
-    
     -   Update the `not_relevant` list with the names of any team members who should be excluded from the random selection.
     -   Update the `admin_user_id_list` with the Slack user IDs of the admins who should be notified.
+
 
 ## 🚀 Usage
 
