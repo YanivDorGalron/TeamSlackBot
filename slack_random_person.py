@@ -1,11 +1,14 @@
 import random
 import os
+import json
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 
 # Your Slack API token
 slack_token = os.getenv("SLACK_TOKEN")
 not_relevant = ['Amir Amer', 'Aviv Golan', 'Gal Alon', 'Slackbot']
+index_file = "current_index.json"
+
 # Initialize the Slack client
 client = WebClient(token=slack_token)
 
@@ -32,32 +35,48 @@ def send_message_to_user(user_id, message):
     except SlackApiError as e:
         print(f"Error sending message: {e.response['error']}")
 
+def load_index():
+    if os.path.exists(index_file):
+        with open(index_file, "r") as f:
+            return json.load(f)["index"]
+    return 0  # Start from the beginning if the file doesn't exist
+
+def save_index(index):
+    with open(index_file, "w") as f:
+        json.dump({"index": index}, f)
+
 def main():
     members = get_team_members()
-    #for member in members:
-    #    user_name = member['real_name']
-    #    print(user_name, member['id'])
     if not members:
         print("No members available to send a message.")
         return
     
-    # Select a random member
-    selected_member = random.choice(members)
+    # Load the current index
+    current_index = load_index()
+
+    # Ensure the index is within the bounds of the members list
+    if current_index >= len(members):
+        current_index = 0  # Reset to the beginning if we've reached the end
+
+    selected_member = members[current_index]
     user_id = selected_member['id']
     user_name = selected_member['real_name']
 
-     
     # Customize your message here
-    message = f"Hello {selected_member['real_name']}, you are the tin man today!"
-
-    admin_user_id_list  = ["U06MCDP1679", "U06MVF8087N"] # Yaniv, David
+    message = f"Hello {user_name}, you are the tin man today!"
+    
+    admin_user_id_list = ["U06MCDP1679"]#, "U06MVF8087N"]  # Yaniv, David
     admin_message = f"{user_name} has been selected as the tin man today."
+    
     for admin_user_id in admin_user_id_list:
         send_message_to_user(admin_user_id, admin_message)
     
     # Send the message to the selected user
-    send_message_to_user(user_id, message)
+    # send_message_to_user(user_id, message)
+
+    # Increment and save the next index
+    current_index = (current_index + 1) % len(members)
+    save_index(current_index)
 
 if __name__ == "__main__":
     main()
-
