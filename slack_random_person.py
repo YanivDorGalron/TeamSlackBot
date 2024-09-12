@@ -65,14 +65,14 @@ def main():
     # Customize your message here
     message = f"Hello {user_name}, you are the tin man today!"
     
-    admin_user_id_list = ["U06MCDP1679"]#, "U06MVF8087N"]  # Yaniv, David
+    admin_user_id_list = ["U06MCDP1679", "U06MVF8087N"]  # Yaniv, David
     admin_message = f"{user_name} has been selected as the tin man today."
     
     for admin_user_id in admin_user_id_list:
         send_message_to_user(admin_user_id, admin_message)
     
     # Send the message to the selected user
-    # send_message_to_user(user_id, message)
+    send_message_to_user(user_id, message)
 
     # Increment and save the next index
     current_index = (current_index + 1) % len(members)
